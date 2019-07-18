@@ -31,7 +31,7 @@ public class PostService {
     public void register(String fullname, String id_no, String mobile_no, String email, Uri profileurl, String username, String password) throws IOException {
 
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
-        String url = Constatnts.BASE_URL + "/register";
+        String url = Constatnts.SIGNUP + "/register";
 
         OkHttpClient client = new OkHttpClient();
 
@@ -59,8 +59,13 @@ public class PostService {
                 .header("Content-Type", "application/json")
                 .build();
 
-        System.out.println(url);
+        System.out.println("yyyyyy"+url);
+        System.out.println("uuuu"+body.toString());
+        System.out.println("heheh"+request.toString());
 
+
+        System.out.println("aa"+username.toString());
+        System.out.println("ww"+profileurl.toString());
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -124,11 +129,14 @@ public class PostService {
         @Override
         public void onResponse(Call call, Response response) throws IOException {
             String mMessage = response.body().string();
-//            Log.e(TAG, mMessage);
-            JSONObject responseJSON = null;
+            Log.e(TAG, mMessage);
+            //JSONObject responseJSON = null;
+
+
             try {
-                responseJSON = new JSONObject(mMessage);
-                System.out.println(responseJSON);
+               JSONObject responseJSON = new JSONObject(mMessage);
+                Log.d("checking",">>>"+responseJSON);
+                System.out.println("kkk"+responseJSON);
                 if (responseJSON.getString("status").equals("success")){
                     login.status = responseJSON.getString("status");
 //                    login.vvv();
